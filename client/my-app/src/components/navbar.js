@@ -1,13 +1,24 @@
 import "bootstrap/dist/css/bootstrap.css";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-const Navbar = ({ setSearchResult }) => {
-  const [isChecked, setIsChecked] = useState(false);
+import { useNavigate } from "react-router-dom";
 
+const Navbar = ({}) => {
+  const navigate = useNavigate(); // Get the history object
+
+  const [isChecked, setIsChecked] = useState(false);
   const [selectedValue, setSelectedValue] = useState("option1");
 
   const handleSelectChange = (event) => {
-    setSelectedValue(event.target.value);
+    const selected = event.target.value;
+    setSelectedValue(selected);
+    // Use history.push() to navigate to different pages based on the selected value
+    if (selected === "list") {
+      navigate("/lists");
+    } else if (selected === "display") {
+      navigate("/display");
+    } else if (selected === "option3") {
+      navigate("/page3");
+    }
   };
 
   const handleCheckboxChange = (event) => {
@@ -27,12 +38,11 @@ const Navbar = ({ setSearchResult }) => {
       </a>
       <div>
         <select value={selectedValue} onChange={handleSelectChange}>
-          <option value="option1">Option 1</option>
+          <option value="list">Option 1</option>
           <option value="display">Option 2</option>
           <option value="option3">Option 3</option>
           {/* Add more options as needed */}
         </select>
-        {selectedValue === "/display" && <link to="/display">page 1</link>}
       </div>
       <div id="navbarToggleExternalContent">
         <form className="d-flex">
@@ -40,7 +50,7 @@ const Navbar = ({ setSearchResult }) => {
             Save
           </button>
           <button className="btn btn-outline-light" type="submit">
-            quite
+            Quit
           </button>
         </form>
         <input
@@ -57,5 +67,3 @@ const Navbar = ({ setSearchResult }) => {
 };
 
 export default Navbar;
-
-//See: https://johnotu.medium.com/how-to-toggle-bootstrap-navbar-collapse-button-in-react-without-jquery-1d5c2fb0751c

@@ -1,22 +1,23 @@
-import React, { useState } from "react";
-import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import PropertyList from "./components/PropertyList";
 import Navbar from "./components/navbar";
-import Display from "./components/other"; // Correct the import and component name to "Display"
-
+import Test from "./components/other";
+import Page3 from "./components/page3";
 function App() {
-  const [searchResult, setSearchResult] = useState("");
+  // const [searchResult, setSearchResult] = useState("");
   return (
-    <div className="App">
-      <Router>
-        <Navbar setSearchResult={setSearchResult} />
-        <Switch>
-          <Route path="/display" component={Display} />{" "}
-          {/* Correct the path and component */}
-          <Route path="/" component={PropertyList} />
-        </Switch>
-      </Router>
-    </div>
+    <Router>
+      <div className="App">
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<PropertyList />} />
+          <Route path="/lists" element={<PropertyList />} />
+          <Route path="/display" element={<Test />} />
+          <Route path="/page3" element={<Page3 />} />
+          {/* more routes as needed */}
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
