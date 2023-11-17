@@ -1,29 +1,50 @@
 document.addEventListener("DOMContentLoaded", function () {
-  fetch("/api/users")
-    .then((response) => response.json())
-    .then((data) => displayUsers(data))
-    .catch((error) => console.error("Error:", error));
-
   fetch("/api/properties")
     .then((response) => response.json())
-    .then((data) => displayProperties(data))
+    .then((data) => {
+      createTable(data);
+    })
     .catch((error) => console.error("Error:", error));
 });
 
-function displayUsers(users) {
-  const usersDiv = document.getElementById("users");
-  users.forEach((user) => {
-    const userDiv = document.createElement("div");
-    userDiv.textContent = `User ID: ${user.user_id}, Name: ${user.user_name}`;
-    usersDiv.appendChild(userDiv);
-  });
-}
+function createTable(data) {
+  const container = document.getElementById("table-container");
+  const table = document.createElement("table");
+  table.setAttribute("border", "1");
 
-function displayProperties(properties) {
-  const propertiesDiv = document.getElementById("properties");
-  properties.forEach((property) => {
-    const propertyDiv = document.createElement("div");
-    propertyDiv.textContent = `Property ID: ${property.property_id}, Street: ${property.strees}, City: ${property.city}`;
-    propertiesDiv.appendChild(propertyDiv);
+  // Create table header
+  const thead = document.createElement("thead");
+  let headerRow = document.createElement("tr");
+  [
+    "Property ID",
+    "Street",
+    "City",
+    "Country",
+    "Date Built",
+    "Current Owner",
+    "Price",
+  ].forEach((headerText) => {
+    let header = document.createElement("th");
+    header.textContent = headerText;
+    headerRow.appendChild(header);
   });
+  thead.appendChild(headerRow);
+  table.appendChild(thead);
+
+  // Create table body
+  const tbody = document.createElement("tbody");
+  data.forEach((item) => {
+    let row = document.createElement("tr");
+    Object.values(item).forEach((text) => {
+      let cell = document.createElement("td");
+      cell.textContent = text;
+      row.appendChild(cell);
+    });
+    tbody.appendChild(row);
+  });
+  table.appendChild(tbody);
+
+  // Append table to container
+  container.innerHTML = ""; // Clear existing content
+  container.appendChild(table);
 }
