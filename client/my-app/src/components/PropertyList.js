@@ -10,10 +10,13 @@ function PropertyList() {
   const [editAddress, setEditAddress] = useState("");
   const [editPrice, setEditPrice] = useState("");
   const [editOwner, setEditOwner] = useState("");
-
+  const [cityValue, setCity] = useState("");
+  const [countryValue, setCountry] = useState("");
+  const [p_ID, setID] = useState("");
+  const [p_date, setDate] = useState("");
   useEffect(() => {
     // Replace with your actual API call
-    fetch("http://localhost:8080/api/properties")
+    fetch("http://localhost:8080/api/property")
       .then((response) => response.json())
       .then((data) => setProperties(data))
       .catch((error) => {
@@ -24,9 +27,13 @@ function PropertyList() {
 
   const openEditModal = (property) => {
     setSelectedProperty(property);
-    setEditAddress(property.streets);
+    setEditAddress(property.strees);
+    setCity(property.city);
+    setCountry(property.country);
     setEditPrice(property.price);
     setEditOwner(property.current_owner);
+    setID(property.property_ID);
+    setDate(property.date_build);
   };
 
   const closeEditModal = () => {
@@ -35,20 +42,35 @@ function PropertyList() {
 
   const handleSaveChanges = (event) => {
     event.preventDefault();
-    // Update the property in your state
-    const updatedProperties = properties.map((p) =>
-      p.property_ID === selectedProperty.property_ID
-        ? {
-            ...p,
-            streets: editAddress,
-            price: editPrice,
-            current_owner: editOwner,
-          }
-        : p
-    );
-    setProperties(updatedProperties);
 
-    // Optionally, send updated data to your server here
+    // Define the API endpoint
+    const updateUrl = `http://localhost:8080/api/property`;
+
+    // Prepare the data to be sent
+    const updated_data = {
+      property_ID: p_ID, // Assuming this is the ID of the property to update
+      strees: editAddress,
+      city: cityValue,
+      country: countryValue,
+      date_build: p_date,
+      current_owner: editOwner,
+      price: editPrice,
+    };
+    console.log(updated_data);
+    fetch(updateUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updated_data),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Success:", data);
+      })
+      .catch((error) => {
+        console.error("Fetch error:", error);
+      });
 
     closeEditModal();
   };
@@ -56,7 +78,7 @@ function PropertyList() {
   if (error) {
     return <div>Error: {error.message}</div>;
   }
-  console.log(properties);
+  // console.log(properties);
   return (
     <div>
       <h1>Property List</h1>
@@ -67,6 +89,10 @@ function PropertyList() {
               <strong>Property ID : {property.property_ID}</strong>
               <br />
               Address: {property.strees}
+              <br />
+              city: {property.city}
+              <br />
+              country: {property.country}
               <br />
               Price: {property.price}
               <br />
@@ -95,6 +121,16 @@ function PropertyList() {
                   value={editAddress}
                   onChange={(e) => setEditAddress(e.target.value)}
                 />
+              </label>
+              <br />
+              <label>
+                City:
+                <input type="readonly" value={cityValue} />
+              </label>
+              <br />
+              <label>
+                Country:
+                <input type="readonly" value={countryValue} />
               </label>
               <br />
               <label>
