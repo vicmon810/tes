@@ -13,5 +13,5 @@ TODO:
     - polish save temp function on current page. 
 Done: 
 - Fix the non-connecting bugs
-  
+  - polish save temp function on current page; when a input come in it will check in db first, if exists delete and re-create it again; otherwise create directly.
 
