@@ -40,7 +40,7 @@ router.post("/property", async (req, res) => {
       current_owner,
       price,
     } = req.body;
-    console.log();
+
     const request = new pool.Request();
 
     request.input("property_ID", pool.VarChar, property_ID);
@@ -57,7 +57,6 @@ router.post("/property", async (req, res) => {
       )
       .then((result) => {
         console.log("Query executed successfully");
-        pool.close(); // Close the connection pool when done
       });
   } catch (err) {
     console.error(err);
