@@ -56,7 +56,6 @@ function PropertyList() {
       current_owner: editOwner,
       price: editPrice,
     };
-    console.log(updated_data);
     fetch(updateUrl, {
       method: "POST",
       headers: {
@@ -71,6 +70,19 @@ function PropertyList() {
       .catch((error) => {
         console.error("Fetch error:", error);
       });
+
+    // Update the properties state
+    setProperties((prevProperties) => {
+      return prevProperties.map((property) => {
+        if (property.property_ID === p_ID) {
+          property.strees = editAddress;
+          property.price = editPrice;
+          property.current_owner = editOwner;
+          return { ...property, ...updated_data };
+        }
+        return property; // Leave other properties unchanged
+      });
+    });
 
     closeEditModal();
   };
