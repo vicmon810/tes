@@ -74,4 +74,22 @@ router.post("/property", async (req, res) => {
   }
 });
 
+router.post("/save", async (req, res) => {
+  try {
+    pool.query(`UPDATE property_o
+SET
+    property_o.strees = property_temp.strees,
+    property_o.city = property_temp.city,
+    property_o.country = property_temp.country,
+    property_o.date_build = property_temp.date_build,
+    property_o.current_owner = property_temp.current_owner,
+    property_o.price = property_temp.price
+FROM property_temp
+WHERE property_o.property_ID = property_temp.property_ID;
+`);
+  } catch (err) {
+    console.log("Failed at:", err);
+  }
+});
+
 module.exports = router;

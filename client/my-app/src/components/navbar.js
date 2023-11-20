@@ -7,7 +7,24 @@ const Navbar = ({}) => {
 
   const [isChecked, setIsChecked] = useState(false);
   const [selectedValue, setSelectedValue] = useState("option1");
-
+  const handleSave = (event) => {
+    try {
+      const updateUrl = `http://localhost:8080/api/save`;
+      fetch(updateUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("Success", data);
+        });
+    } catch (error) {
+      console.log("Failed on:", error);
+    }
+  };
   const handleSelectChange = (event) => {
     const selected = event.target.value;
     setSelectedValue(selected);
@@ -45,12 +62,13 @@ const Navbar = ({}) => {
         </select>
       </div>
       <div id="navbarToggleExternalContent">
-        <form className="d-flex">
-          <button className="btn btn-outline-light" type="submit">
+        <form>
+          <button
+            className="btn btn-outline-light" // Re-add your Bootstrap classes if needed
+            type="button"
+            onClick={handleSave}
+          >
             Save
-          </button>
-          <button className="btn btn-outline-light" type="submit">
-            Quit
           </button>
         </form>
         <input
