@@ -11,5 +11,7 @@ TODO:
     - Fix the address can't display on edit pages
     - pass search result to back-end and search it in database
     - polish save temp function on current page. 
+Done: 
+- Fix the non-connecting bugs
   
 
