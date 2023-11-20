@@ -13,16 +13,16 @@ A web site helping property management to work more efficiently.
 
 ## Introduction
 
-Provide an introduction to your web page project. Explain what it does and why it's useful.
+TODO
 
 ## Features
 
-List the key features of your web page.
+TODO
 
 ## Installation
 
-Provide instructions on how to install or set up your web page. Include any dependencies and system requirements.
+TODO
 
 ```bash
 # Example installation commands or steps
-npm install my-web-page
+./sh
