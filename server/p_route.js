@@ -41,26 +41,36 @@ router.post("/property", async (req, res) => {
       price,
     } = req.body;
 
-    const request = new pool.Request();
+    const checkQuery =
+      "SELECT COUNT(1) FROM property_temp WHERE property_ID = @property_ID";
+    const deleteQuery =
+      "DELETE FROM property_temp WHERE property_ID = @property_ID";
+    const insertQuery =
+      "INSERT INTO property_temp (property_ID, strees, city, country, date_build, current_owner, price) VALUES (@property_ID, @strees, @city, @country, @date_build, @current_owner, @price)";
 
+    const request = new pool.Request();
     request.input("property_ID", pool.VarChar, property_ID);
+
+    // Check if the record exists
+    const checkResult = await request.query(checkQuery);
+    if (checkResult.recordset[0][""] > 0) {
+      // Record exists, delete it
+      await request.query(deleteQuery);
+    }
+
+    // Insert the new record
     request.input("strees", pool.VarChar, strees);
     request.input("city", pool.VarChar, city);
     request.input("country", pool.VarChar, country);
     request.input("date_build", pool.Date, date_build);
     request.input("current_owner", pool.VarChar, current_owner);
     request.input("price", pool.VarChar, price);
+    await request.query(insertQuery);
 
-    request
-      .query(
-        "INSERT INTO property_temp (property_ID, strees, city, country, date_build, current_owner, price) VALUES (@property_ID, @strees, @city, @country, @date_build, @current_owner, @price)"
-      )
-      .then((result) => {
-        console.log("Query executed successfully");
-      });
+    res.send("Property entry updated successfully");
   } catch (err) {
     console.error(err);
-    res.status(500).send("Server error while creating new property entry");
+    res.status(500).send("Server error while updating property entry");
   }
 });
 
