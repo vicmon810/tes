@@ -1,10 +1,17 @@
 # Property management Systems developing Blog. 
 
 
-*  [21/11/2023] (21/11/2023)
+*  [22/11/2023](22/11/2023)
+*  [21/11/2023](21/11/2023)
 
+## [22/11/2023]
+### TODO:
+- 
+### DONE: 
+- 
+## [21/11/2023]
 
-## Enhancing User Experience: Resolving Existing Bugs and Upgrading Context-Triggered Column Creation in Web Page Functionality[21/11/2023]
+### Enhancing User Experience: Resolving Existing Bugs and Upgrading Context-Triggered Column Creation in Web Page Functionality
 
 ## TODO:
 - Fix Non-Connection Bugs:
