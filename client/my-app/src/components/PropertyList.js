@@ -95,26 +95,45 @@ function PropertyList() {
     <div>
       <h1>Property List</h1>
       <ul>
-        {properties.map((property) => (
-          <div key={property.property_ID}>
-            <li>
-              <strong>Property ID : {property.property_ID}</strong>
-              <br />
-              Address: {property.strees}
-              <br />
-              city: {property.city}
-              <br />
-              country: {property.country}
-              <br />
-              Price: {property.price}
-              <br />
-              Owner: {property.current_owner}
-              <br />
-              Date built: {property.date_build}
-            </li>
-            <button onClick={() => openEditModal(property)}>Edit</button>
-          </div>
-        ))}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
+            gap: "20px",
+          }}
+        >
+          {properties.map((property) => (
+            <div
+              key={property.property_ID}
+              style={{ border: "1px solid #ccc", padding: "10px" }}
+            >
+              <div>
+                <strong>Property ID:</strong> {property.property_ID}
+              </div>
+              <div>
+                <strong>Address:</strong> {property.strees}
+              </div>
+              <div>
+                <strong>City:</strong> {property.city}
+              </div>
+              <div>
+                <strong>Country:</strong> {property.country}
+              </div>
+              <div>
+                <strong>Price:</strong> {property.price}
+              </div>
+              <div>
+                <strong>Owner:</strong> {property.current_owner}
+              </div>
+              <div>
+                <strong>Date Built:</strong> {property.date_build}
+              </div>
+              <button>Connect Owner</button>
+              <button>Mortgage Calculating</button>
+              <button onClick={() => openEditModal(property)}>Edit</button>
+            </div>
+          ))}
+        </div>
       </ul>
 
       <Modal

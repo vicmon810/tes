@@ -29,11 +29,11 @@ const Navbar = ({}) => {
     const selected = event.target.value;
     setSelectedValue(selected);
     // Use history.push() to navigate to different pages based on the selected value
-    if (selected === "list") {
+    if (selected === "Property List") {
       navigate("/lists");
-    } else if (selected === "display") {
+    } else if (selected === "Search Property") {
       navigate("/search");
-    } else if (selected === "option3") {
+    } else if (selected === "About US") {
       navigate("/page3");
     }
   };
@@ -55,9 +55,9 @@ const Navbar = ({}) => {
       </a>
       <div>
         <select value={selectedValue} onChange={handleSelectChange}>
-          <option value="list">Option 1</option>
-          <option value="display">Option 2</option>
-          <option value="option3">Option 3</option>
+          <option value="Property List">Property List</option>
+          <option value="Search Property">Search Property</option>
+          <option value="About US">About US</option>
           {/* Add more options as needed */}
         </select>
       </div>
