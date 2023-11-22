@@ -32,7 +32,7 @@ const Navbar = ({}) => {
     if (selected === "list") {
       navigate("/lists");
     } else if (selected === "display") {
-      navigate("/display");
+      navigate("/search");
     } else if (selected === "option3") {
       navigate("/page3");
     }
