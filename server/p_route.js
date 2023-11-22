@@ -3,13 +3,25 @@ const pool = require("./database"); // Ensure this path is correct
 const router = express.Router();
 
 // Handler to get a single property's information
-router.get("/property/:id", async (req, res) => {
+router.get("/property/:searchInput", async (req, res) => {
   try {
-    const propertyId = req.params.id;
-    const result = await pool.query("SELECT * FROM properties WHERE id = $1", [
-      propertyId,
-    ]);
-    res.json(result.rows);
+    const searchInput = req.params.searchInput;
+    request = new pool.Request();
+    if (searchInput < 9) {
+      console.log("111");
+      request.input("property_ID", pool.VarChar, searchInput);
+      const searchQuery =
+        "SELECT * FROM property_o WHERE property_ID = @property_ID";
+      const checkResult = await request.query(searchQuery);
+      res.json(checkResult.recordset);
+    } else {
+      console.log("123");
+      request.input("strees", pool.VarChar, searchInput);
+      const searchQuery = "SELECT * FROM property_o WHERE strees = @strees";
+      checkResult = await request.query(searchQuery);
+      console.log(checkResult);
+      res.json(checkResult.recordset);
+    }
   } catch (err) {
     console.error(err);
     res.status(500).send("Server error while fetching property");
@@ -42,7 +54,7 @@ router.post("/property", async (req, res) => {
     } = req.body;
 
     const checkQuery =
-      "SELECT COUNT(1) FROM property_temp WHERE property_ID = @property_ID";
+      "SELECT * FROM property_temp WHERE property_ID = @property_ID";
     const deleteQuery =
       "DELETE FROM property_temp WHERE property_ID = @property_ID";
     const insertQuery =
