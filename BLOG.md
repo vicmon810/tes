@@ -5,11 +5,17 @@
 *  [21/11/2023](21/11/2023)
 
 ## [22/11/2023]
-### TODO:
-- 
-### DONE: 
-- 
+Implementing a Dynamic Search Function in My Project
+
+# Done 
+- Search Bar Inputs
+- Sending Inputs to the Back-End
+- SQL Script for Searching
+
+
+
 ## [21/11/2023]
+
 
 ### Enhancing User Experience: Resolving Existing Bugs and Upgrading Context-Triggered Column Creation in Web Page Functionality
 
